@@ -61,5 +61,12 @@ function createHtml(responseData){
     weatherImg.classList.add('weatherImg'); //do napisania w css bo tego nie ma
     app.appendChild(weatherImg);
 
+    let currentWederImg = responseData.weather[0].main
+
+    if(currentWederImg === 'Clear'){   //a moze switch
+        weatherImg.src = jakas sciezka z obrazkiem   ///////////////
+    }
 
 }
+
+

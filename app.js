@@ -19,6 +19,8 @@ async function fetchWeatherData(cityName) {
         alert("City not found")
     }
     const data = await response.json()
+
+    // createHtml(data)
     return data;
 }
 

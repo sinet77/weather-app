@@ -5,7 +5,8 @@
 
 }
 .background{
-    background-color: #FFF3CD;
+    background-color: #a0d2eb;
+    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,20 +21,42 @@
              rgba(0,0,0,0.3) 0px 18px 36px -18px;
   width:300px;
   height:500px;
-  background-color:#71C5E2;
+  background-color:#d4d2cb;
   max-width:100%;
   border-radius:10px;
-  padding-top:30px;
+  padding:20px;
 }
 
 .headline{
-  display:flex;
+  font-family: 'Rocher';
+  text-align: center;
+  font-size: 24px;
+  display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   
 }
+
+@font-face {
+  font-family: 'Rocher';
+  src: url(https://assets.codepen.io/9632/RocherColorGX.woff2);
+}
+@font-palette-values --Mint {
+  font-family: Rocher;
+  base-palette: 7;
+}
+
+.sub-title{
+  margin-top: 30px;
+}
 .title{
-  margin-bottom: 10px;
+  font-size: 26px;
+  font-palette: --Mint;
+  margin-bottom: 20px;
+}
+.weatherImg{
+  margin-top: 40px;
 }
 
 .bar{
@@ -44,7 +67,7 @@
   border:none;
 }
 .barAgain{
-  margin-top: 140px;
+ 
   height: 30px;
   padding: 5px;
   border-radius:5px;
@@ -61,13 +84,15 @@ button{
   border-radius: 5px;
   border: none;
   cursor: pointer;
+  background-color: #e5eaf5;
+  border: 1px solid black;
 }
 button:hover{
-  background-color: aquamarine;
+  background-color: #d0bdf4;
+  transform: scale(1.2);
 }
 .buttonAgain{
   display: flex;
-  margin-top: 160px;
   width: 100px;
   height: 35px;
   align-items: center;
@@ -75,25 +100,65 @@ button:hover{
   border-radius: 5px;
   border: none;
   cursor: pointer;
+  background-color: #e5eaf5;
+  border: 1px solid black;
 }
 .buttonAgain:hover{
-  background-color: aquamarine;
+  background-color: #d0bdf4;
+  transform: scale(1.2);
 }
 
 .weatherImg{
   display: flex;
-  scale: 1.5;
-
+  scale: 1.4;
+  margin-top: 20px;
 }
 
 .hidden{
   display: none;
 }
-.container{
-  display: flex;
-  flex-direction: column;
-  
+
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
-.temperature{
-  margin-top:50px;
+
+.slide-in {
+  animation: slideInFromRight 0.5s ease-in-out;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.5); /* Rozpoczynamy skalę elementu na 50% jego oryginalnej wielkości */
+    opacity: 0; /* Rozpoczynamy z przezroczystością 0 */
+  }
+  to {
+    transform: scale(1); /* Kończymy skalę elementu na jego oryginalnej wielkości */
+    opacity: 1; /* Kończymy z pełną widocznością */
+  }
+}
+
+.zoom-in {
+  animation: zoomIn 0.5s ease-in-out;
+}
+
+.container{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 7px;
+  justify-content: center;
+  text-align: center;
+  margin-top: 40px;
+}
+.box{
+  padding: 20px;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 10px;
+  font-weight: 500;
 }

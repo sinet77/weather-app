@@ -33,51 +33,55 @@ async function fetchWeatherData(cityName) {
 searchButton.addEventListener('click', async () => {
     const cityName = cityInput.value;
     const weatherObject = await fetchWeatherData(cityName)
-
+    app.classList.add('slide-in');
+    
     console.log(weatherObject) //trzeba zobaczyc wszystkie wlasciwosci, np rodzaje pogody
 })
 
 function createHtml(responseData){
-    const container = document.createElement('div')
-    container.classList.add('container')
-    app.appendChild(container)
 
     const nameOfTheCity = document.createElement('div')
     nameOfTheCity.classList.add('title')
     nameOfTheCity.textContent = responseData.name;
-    container.appendChild(nameOfTheCity)
+    app.appendChild(nameOfTheCity)
     
     const weatherImg = document.createElement('img');
     weatherImg.classList.add('weatherImg'); //do napisania w css bo tego nie ma
-    container.appendChild(weatherImg);
+    app.appendChild(weatherImg);
+
+
+    const container = document.createElement('div')
+    container.classList.add('container')
+    app.appendChild(container)
+
 
     const temperature = document.createElement('div')
-    temperature.classList.add('temperature')
+    temperature.classList.add('temperature','box')
     container.appendChild(temperature)
 
     let currentTemperature = responseData.main.temp
-    temperature.textContent = currentTemperature
+    temperature.textContent = `${kelvinToCelsius(currentTemperature)}°C`
 
     const humidity = document.createElement('div')
-    humidity.classList.add('humidity')
+    humidity.classList.add('humidity','box')
     container.appendChild(humidity)
 
     let currentHumidity = responseData.main.humidity
-    humidity.textContent = currentHumidity
+    humidity.textContent = `${currentHumidity}%`
 
     const pressure = document.createElement('div')
-    pressure.classList.add('pressure')
+    pressure.classList.add('pressure','box')
     container.appendChild(pressure)
 
     let currentPressure = responseData.main.pressure
-    pressure.textContent = currentPressure
+    pressure.textContent = `${currentPressure} hPa`
 
     const wind = document.createElement('div')
-    wind.classList.add('wind')
+    wind.classList.add('wind','box')
     container.appendChild(wind)
 
     let currentWind = responseData.wind.speed
-    wind.textContent = currentWind
+    wind.textContent = `${currentWind} m/s`
 
 
     const bar = document.createElement('div');
@@ -90,16 +94,20 @@ function createHtml(responseData){
     bar.appendChild(inputTextCity)
 
 
-    const searchButton = document.createElement('button');
-    searchButton.classList.add('buttonAgain');  
-    searchButton.textContent = "Search again"
-    app.appendChild(searchButton);
+    const searchButtonAgain = document.createElement('button');
+    searchButtonAgain.classList.add('buttonAgain');  
+    searchButtonAgain.textContent = "Search again"
+    app.appendChild(searchButtonAgain);
 
-    searchButton.addEventListener('click', () =>{
+    searchButtonAgain.addEventListener('click', () =>{
         fetchWeatherData(inputTextCity.value)
+        app.classList.remove('slide-in')
+        app.classList.add('zoom-in')
+
+        
     })
 
-
+    
 
     let currentWeatherImg = responseData.weather[0].main;
     console.log(currentWeatherImg)
@@ -134,5 +142,7 @@ function createHtml(responseData){
     
 }
 
-
+function kelvinToCelsius(kelvinTemperature){
+    return Math.ceil(kelvinTemperature-273.15)
+}
 

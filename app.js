@@ -32,16 +32,24 @@ async function fetchWeatherData(cityName) {
 
 searchButton.addEventListener('click', async () => {
     const cityName = cityInput.value;
-    const weatherObject = await fetchWeatherData(cityName)
+    if(/^[a-zA-Z]+$/.test(cityName)){
+        const weatherObject = await fetchWeatherData(cityName)
     app.classList.add('slide-in');
     
     console.log(weatherObject) //trzeba zobaczyc wszystkie wlasciwosci, np rodzaje pogody
+    }
+    else {
+    alert ('Please enter a valid name of the city')
+    }
+
 })
 
 function createHtml(responseData){
 
+    
+
     const nameOfTheCity = document.createElement('div')
-    nameOfTheCity.classList.add('title')
+    nameOfTheCity.classList.add('cityName')
     nameOfTheCity.textContent = responseData.name;
     app.appendChild(nameOfTheCity)
     
@@ -60,14 +68,15 @@ function createHtml(responseData){
     container.appendChild(temperature)
 
     let currentTemperature = responseData.main.temp
-    temperature.textContent = `${kelvinToCelsius(currentTemperature)}°C`
+    temperature.innerHTML = `<span class="current-text">Temperature</span><br><span>+${kelvinToCelsius(currentTemperature)}°C</span>`;
+
 
     const humidity = document.createElement('div')
     humidity.classList.add('humidity','box')
     container.appendChild(humidity)
 
     let currentHumidity = responseData.main.humidity
-    humidity.textContent = `${currentHumidity}%`
+    humidity.innerHTML = `<span class="current-text">Humidity</span><br><span>${currentHumidity}%</span>`;
 
     const pressure = document.createElement('div')
     pressure.classList.add('pressure','box')
@@ -75,6 +84,7 @@ function createHtml(responseData){
 
     let currentPressure = responseData.main.pressure
     pressure.textContent = `${currentPressure} hPa`
+    pressure.innerHTML = `<span class="current-text">Pressure</span><br><span>${currentPressure} hPa</span>`;
 
     const wind = document.createElement('div')
     wind.classList.add('wind','box')
@@ -82,6 +92,7 @@ function createHtml(responseData){
 
     let currentWind = responseData.wind.speed
     wind.textContent = `${currentWind} m/s`
+    wind.innerHTML = `<span class="current-text">Wind speed</span><br><span>${currentWind} m/s</span>`;
 
 
     const bar = document.createElement('div');
@@ -100,13 +111,20 @@ function createHtml(responseData){
     app.appendChild(searchButtonAgain);
 
     searchButtonAgain.addEventListener('click', () =>{
+    if(/^[a-zA-Z]+$/.test(inputTextCity.value)){  //&& responseData.contains(inputTextCity.value) ?????????????????
         fetchWeatherData(inputTextCity.value)
+        app.classList.remove('zoom-in')
+        app.offsetWidth; //wymuszenie ponownego przeliczenia stylów elementu, przez co resetuje sie animacja
         app.classList.remove('slide-in')
         app.classList.add('zoom-in')
 
+    } else{
+    alert ('Please enter a valid name of the city')
+    }
+
         
     })
-
+    
     
 
     let currentWeatherImg = responseData.weather[0].main;

@@ -32,6 +32,12 @@ async function fetchWeatherData(cityName) {
 
 searchButton.addEventListener('click', async () => {
     const cityName = cityInput.value;
+    
+//     cityName.addEventListener('keydown', function (event) {
+//     if (event.key === 'Enter') {
+//       fetchWeatherData(cityName);
+//     }
+//   });
     if(/^[a-zA-Z]+$/.test(cityName)){
         const weatherObject = await fetchWeatherData(cityName)
     app.classList.add('slide-in');
@@ -103,7 +109,12 @@ function createHtml(responseData){
     inputTextCity.classList.add('barAgain')
     inputTextCity.setAttribute('placeholder', 'Enter city'); 
     bar.appendChild(inputTextCity)
-
+	
+  	 inputTextCity.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+      fetchWeatherData(inputTextCity.value);
+    }
+  });
 
     const searchButtonAgain = document.createElement('button');
     searchButtonAgain.classList.add('buttonAgain');  
@@ -163,4 +174,3 @@ function createHtml(responseData){
 function kelvinToCelsius(kelvinTemperature){
     return Math.ceil(kelvinTemperature-273.15)
 }
-

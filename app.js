@@ -7,35 +7,32 @@ const app = document.querySelector('.white-board')
 const container = document.querySelector('.container')
 const headline = document.querySelector('.headline')
 
-const temperature = document.querySelector('.temperature')
-const humidity = document.querySelector('.humidity')
-const pressure = document.querySelector('.pressure')
-const wind = document.querySelector('.wind')
+const temperature = document.querySelector('#temperature')
+const humidity = document.querySelector('#humidity')
+const pressure = document.querySelector('#pressure')
+const wind = document.querySelector('#wind')
 
+const cityName = document.querySelector('#cityName')
+const weatherImg = document.querySelector('#weatherImg')
+const intro = document.querySelector('#intro')
 
-// if(!city){
-//     alert ("Please enter the city");
-//     return;
-// }
-
-let lastCityName = ''
 
 
 async function fetchWeatherData(cityName) {
     const response = await fetch(`${apiUrl}${cityName}&appid=${apiKey}`); //pobrane dane z serwera
     const data = await response.json()
 
-
-    // app.innerHTML = ''
-    lastCityName = cityName;
-
-
     return data;
 }
 
-cityInput.addEventListener('keydown', function (event) {
+
+cityInput.addEventListener('keydown', async function (event) {
+
     if (event.key === 'Enter') {
-        fetchWeatherData(cityInput.value);
+
+        const data = await fetchWeatherData(cityInput.value);
+        createHtml(data)
+
     }
 });
 
@@ -47,6 +44,7 @@ searchButton.addEventListener('click', async () => {
     if (/^[a-zA-Z]+$/.test(cityName)) {
 
         const weatherObject = await fetchWeatherData(cityName)
+        console.log(weatherObject)
 
         createHtml(weatherObject)
 
@@ -61,79 +59,22 @@ searchButton.addEventListener('click', async () => {
 
 function createHtml(responseData) {
 
-    container.innerHTML = '';
+    const currentTemperature = responseData.main.temp
+    const currentHumidity = responseData.main.humidity
+    const currentPressure = responseData.main.pressure
+    const currentWind = responseData.wind.speed
+
+    temperature.textContent = kelvinToCelsius(currentTemperature)
+    humidity.textContent = currentHumidity
+    pressure.textContent = currentPressure
+    wind.textContent = currentWind
 
 
-    let currentTemperature = responseData.main.temp
-    let currentHumidity = responseData.main.humidity
-    let currentPressure = responseData.main.pressure
-    let currentWind = responseData.wind.speed
+    cityName.textContent = responseData.name;
 
-    const nameOfTheCity = document.createElement('div')
-    nameOfTheCity.classList.add('cityName')
-    nameOfTheCity.textContent = responseData.name;
-    app.appendChild(nameOfTheCity)
+    const currentWeatherImg = responseData.weather[0].main;
 
-    const weatherImg = document.createElement('img');
-    weatherImg.classList.add('weatherImg'); //do napisania w css bo tego nie ma
-    app.appendChild(weatherImg);
-
-    const temperatureBox = document.createElement('div');
-    temperatureBox.classList.add('temperature', 'box');
-    temperatureBox.textContent = `Temperature: +${kelvinToCelsius(currentTemperature)}°C`;
-
-    const humidityBox = document.createElement('div');
-    humidityBox.classList.add('humidity', 'box');
-    humidityBox.textContent = `Humidity: ${currentHumidity}%`;
-
-    const pressureBox = document.createElement('div');
-    pressureBox.classList.add('pressure', 'box');
-    pressureBox.textContent = `Pressure: ${currentPressure} hPa`;
-
-    const windBox = document.createElement('div');
-    windBox.classList.add('wind', 'box');
-    windBox.textContent = `Wind speed: ${currentWind} m/s`;
-
-    container.appendChild(temperatureBox);
-    container.appendChild(humidityBox);
-    container.appendChild(pressureBox);
-    container.appendChild(windBox);
-
-    // const bar = document.createElement('div');
-    // bar.classList.add('bar');
-    // app.appendChild(bar);
-
-    // const inputTextCity = document.createElement('input');
-    // inputTextCity.classList.add('barAgain')
-    // inputTextCity.setAttribute('placeholder', 'Enter city');
-    // bar.appendChild(inputTextCity)
-
-    // inputTextCity.addEventListener('keydown', function (event) {
-    //     if (event.key === 'Enter') {
-    //         fetchWeatherData(inputTextCity.value);
-    //     }
-    // });
-
-
-    // searchButtonAgain.addEventListener('click', () => {
-    //     if (/^[a-zA-Z]+$/.test(inputTextCity.value)) {  //&& responseData.contains(inputTextCity.value) ?????????????????
-    //         fetchWeatherData(inputTextCity.value)
-    //         app.classList.remove('zoom-in')
-    //         app.offsetWidth; //wymuszenie ponownego przeliczenia stylów elementu, przez co resetuje sie animacja
-    //         app.classList.remove('slide-in')
-    //         app.classList.add('zoom-in')
-
-    //     } else {
-    //         alert('Please enter a valid name of the city')
-    //     }
-
-
-    // })
-
-
-
-    let currentWeatherImg = responseData.weather[0].main;
-
+    weatherImg.alt = currentWeatherImg
 
     if (currentWeatherImg === 'Clear') {
         weatherImg.src = 'images/clear-day.png'
@@ -162,7 +103,8 @@ function createHtml(responseData) {
 
 
 
-    container.classList.remove('hidden');
+    container.classList.remove('hidden')
+    intro.classList.add('hidden')
 }
 
 function kelvinToCelsius(kelvinTemperature) {

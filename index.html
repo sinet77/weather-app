@@ -25,19 +25,40 @@
 <body>
     <div class="background">
         <div class="white-board">
-            <div class="headline">
+            <div class="headline" id="intro">
                 <h1 class="title">Welcome!</h1>
                 <p1 class="sub-title">Please name a city to check the weather</p1>
 
             </div>
-            <div class="container hidden">
-                <div class="temperature box">Temperature</div>
-                <div class="humidity box">Humidity</div>
-                <div class="pressure box">Pressure</div>
-                <div class="wind box">Wind speed</div>
+
+            <div class="container hidden" id="weather">
+                <div>
+                    <h1 id="cityName">
+                        <!-- dynamic city name-->
+                    </h1>
+                    <img src="" alt="" id="weatherImg" />
+                </div>
+                <div>
+                    <div class="temperature box">
+                        <div>Temperature</div>
+                        <div id="temperature"></div>
+                    </div>
+                    <div class="humidity box">
+                        <div>Humidity</div>
+                        <div id="humidity"></div>
+                    </div>
+                    <div class="pressure box">
+                        <div>Pressure</div>
+                        <div id="pressure"></div>
+                    </div>
+                    <div class="wind box">
+                        <div>Wind speed</div>
+                        <div id="wind"></div>
+                    </div>
+                </div>
             </div>
 
-            <input type="text" class=bar placeholder="Enter a city">
+            <input type="text" class="bar" placeholder="Enter a city">
             <button id="button">Search</button>
 
         </div>

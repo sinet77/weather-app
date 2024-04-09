@@ -7,7 +7,6 @@
 
 .background {
   background-color: #a0d2eb;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,7 +22,8 @@
     rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
   width: 350px;
   height: 600px;
-  background-color: #aaa6a6;
+  background-image: url('images/sky.avif');
+  background-size: cover;
   max-width: 100%;
   border-radius: 10px;
   padding: 20px;
@@ -70,19 +70,11 @@
   font-weight: 900;
   -webkit-text-stroke: 1.5px black;
   /* Grubość i kolor obwódki */
-  margin-bottom: 15px;
+  margin-bottom: 40px;
 }
 
 .bar {
   margin-top: 50px;
-  height: 30px;
-  padding: 5px;
-  border-radius: 5px;
-  border: none;
-}
-
-.barAgain {
-
   height: 30px;
   padding: 5px;
   border-radius: 5px;
@@ -104,27 +96,8 @@ button {
 }
 
 button:hover {
-  background-color: #d0bdf4;
-  transform: scale(1.2);
-}
-
-.buttonAgain {
-  display: flex;
-  width: 100px;
-  height: 35px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  background-color: #e5eaf5;
-  border: 1px solid black;
-
-}
-
-.buttonAgain:hover {
-  background-color: #d0bdf4;
-  transform: scale(1.2);
+  background-color: #df4b26;
+  transform: scale(1.4);
 }
 
 .weatherImg {
@@ -168,7 +141,7 @@ button:hover {
   animation: zoomIn 0.5s ease-in-out;
 }
 
-.container {
+.together {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 15px;

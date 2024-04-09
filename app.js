@@ -15,12 +15,14 @@ const wind = document.querySelector('#wind')
 const cityName = document.querySelector('#cityName')
 const weatherImg = document.querySelector('#weatherImg')
 const intro = document.querySelector('#intro')
+const together = document.querySelector('.together')
 
-
+app.classList.add('slide-in');
 
 async function fetchWeatherData(cityName) {
     const response = await fetch(`${apiUrl}${cityName}&appid=${apiKey}`); //pobrane dane z serwera
     const data = await response.json()
+
 
     return data;
 }
@@ -44,16 +46,17 @@ searchButton.addEventListener('click', async () => {
     if (/^[a-zA-Z]+$/.test(cityName)) {
 
         const weatherObject = await fetchWeatherData(cityName)
-        console.log(weatherObject)
 
         createHtml(weatherObject)
 
 
-        app.classList.add('slide-in');
+
     }
     else {
         alert('Please enter a valid name of the city')
     }
+
+
 
 })
 
@@ -64,10 +67,10 @@ function createHtml(responseData) {
     const currentPressure = responseData.main.pressure
     const currentWind = responseData.wind.speed
 
-    temperature.textContent = kelvinToCelsius(currentTemperature)
-    humidity.textContent = currentHumidity
-    pressure.textContent = currentPressure
-    wind.textContent = currentWind
+    temperature.textContent = `${kelvinToCelsius(currentTemperature)}°C`
+    humidity.textContent = `${currentHumidity}%`
+    pressure.textContent = `${currentPressure} hPa`
+    wind.textContent = `${currentWind} m/s`
 
 
     cityName.textContent = responseData.name;
@@ -105,6 +108,10 @@ function createHtml(responseData) {
 
     container.classList.remove('hidden')
     intro.classList.add('hidden')
+    together.classList.remove('zoom-in');
+    together.offsetWidth;
+    together.classList.add('zoom-in');
+
 }
 
 function kelvinToCelsius(kelvinTemperature) {

@@ -79,32 +79,27 @@ function createHtml(responseData) {
 
     weatherImg.alt = currentWeatherImg
 
+
+
     if (currentWeatherImg === 'Clear') {
-        weatherImg.src = 'images/clear-day.png'
     }
     if (currentWeatherImg === 'Clouds') {
-        weatherImg.src = 'images/cloudy.png'
     }
     if (currentWeatherImg === 'Snow') {
-        weatherImg.src = 'images/snow.png'
     }
     if (currentWeatherImg === 'Rain') {
-        weatherImg.src = 'images/rain.png'
     }
     if (currentWeatherImg === 'Drizzle') {
-        weatherImg.src = 'images/rain.png'
     }
     if (currentWeatherImg === 'Thunderstorm') {
-        weatherImg.src = 'images/thunder.png'
     }
     if (currentWeatherImg === 'Mist') {
-        weatherImg.src = 'images/fog.png'
     }
     if (currentWeatherImg === 'Fog') {
-        weatherImg.src = 'images/fog.png'
+
     }
 
-
+    weatherImg.src = `images/${currentWeatherImg}.png`
 
     container.classList.remove('hidden')
     intro.classList.add('hidden')
